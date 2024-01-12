@@ -7,22 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
         p {border: 2px blue solid; padding: 5px;}
+        .mivs {color: red;}
     </style>
     <title>0109 django notes API throttling class-based views </title>
 </head>
 <body>
     <h2>0109 django notes > API throttling </h2>
     <p>
-        |___#ex0109 API throttling classed-based views.py <br>|------------- <i><u>views.py</u></i> <br><br>
+        |___#ex0109 API throttling classed-based views.py <br>
+        |___#ex0112 added ordering_fields <br>
+        |------------- <i><u>views.py</u></i> <br><br>
         | from django.shortcuts import render <br>
         | from rest_framework import viewsets <br>
         | from .models import MenuItem <br>
         | from .serializers import MenuItemSerializer <br>
         | from rest_framework.throttling import UserRateThrottle, AnonRateThrottle <br>
         | <br>| <br>
-        | class MenuItemsViewSet(viewsets.ModelViewSet): <br>
+        | class <a href="mivs" class="mivs">MenuItemViewSet</a>(viewsets.ModelViewSet): <br>
         | .. queryset = MenuItem.objects.all() <br>
         | .. serializer_class = MenuItemSerializer <br>
+        | .. ordering_fields = ['price', 'inventory'] <br>
+        | .. search_fields = ['title', 'category__title'] <br>
         | .. <strike>throttle_classes = [AnonRateThrottle, UserRateThrottle] </strike> <br>
         | <br>
         | # conditional throttling used for API endpoints with specific HTTP methods, like GET, POST <br><br>
@@ -40,8 +45,8 @@
     <p>
         |___#ex0109 map the MenuItemViewSet class, to the API endpoint 'menu-items' <br>| --------------<i><u>urls.py</u></i> <br>
         | urlpatterns = [<br>
-        | .. path('menu-items', views.MenuItemViewSet.as_view({'get':'list'})), <br>
-        | .. path('menu-items/< int:pk>', views.MenuItemViewSet.as_view({'get':'retrieve'})), <br>
+        | .. path('menu-items', views.<a href="mivs" class="mivs">MenuItemViewSet</a>.as_view({'get':'list'})), <br>
+        | .. path('menu-items/< int:pk>', views.<a href="mivs" class="mivs">MenuItemViewSet</a>.as_view({'get':'retrieve'})), <br>
         | ] <br>
         <br>
         <br>
