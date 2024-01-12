@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'LittleLemonAPI',
     'rest_framework',
     'djoser',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    #'rest_framework_simplejwt.token_blacklist',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +137,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_THROTTLE_RATES': {
         'anon': '2/minute',
@@ -144,4 +148,12 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     "USER_ID_FIELD": "username"
+}
+
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=1),
 }
