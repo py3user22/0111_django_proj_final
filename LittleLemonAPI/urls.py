@@ -8,10 +8,13 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     path('', views.home),
+]
+
+"""
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    """
+    
     #0112 required API routes for final project > use Djoser 
     #--------------------------------------------
     path('/api/users', )
@@ -63,15 +66,4 @@ urlpatterns = [
     # delivery-crew
     path('/api/orders', )                  # GET > returns all orders w/ order items assigned to crew
     path('/api/orders/{orderId}', )        # PATCH > crew can use to update from order status from 0 to 1, 
-    
-    
-    
-    """
-
-
-
-
-
-
-
-]
+"""
