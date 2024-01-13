@@ -8,6 +8,7 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     path('', views.home),
+    #path('api/menu-items', )
 ]
 
 """
