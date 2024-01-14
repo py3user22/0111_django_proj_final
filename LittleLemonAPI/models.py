@@ -3,15 +3,26 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=100, primary_key=True)
     title = models.CharField(max_length=255, db_index=True, default=1)
 
 
 class MenuItem(models.Model):
-    title = models.CharField(max_length=255, db_index=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2, db_index=True)
-    featured = models.BooleanField(db_index=True)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    title = models.CharField(
+        max_length=255,
+        db_index=True
+    )
+    price = models.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        db_index=True)
+    featured = models.BooleanField(
+        db_index=True
+    )
+    category = models.ForeignKey(
+        "Category",
+            on_delete=models.PROTECT,
+    )
 
 
 class Cart(models.Model):

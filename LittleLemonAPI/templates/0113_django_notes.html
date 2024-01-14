@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
         p {border: 2px blue dashed; padding: 5px;}
+        .name {color: orange;}
     </style>
     <title>0113 django notes for final demo3</title>
 </head>
@@ -14,7 +15,36 @@
     <h2>0113 django notes</h2>
     <p>
         __#ex 0113 django notes <br>-----------------<br>
+        ForeignKeys <br> -------------- <b>models.py</b>   <br>
+        | class <a href="name" class="name">Artist</a>(models.Model): <br>
+        | .. name = models.Charfield(max_length=10) <br>
+        | <br>
+        | class <a href="name" class="name">Album</a>(models.Model): <br>
+        | .. artist = models.ForeignKey(Artist, on_delete=models.CASCADE) <br>
+        |<br>
+        | class <a href="name" class="name">Song</a>(models.Model): <br>
+        | .. artist = models.ForeignKey(Artist, on_delete=models.CASCADE) <br>
+        | .. album = models.ForeignKey(Album, on_delete=models.RESTRICT) <br>
 
+    </p>
+    <p>
+        ___#ex0113 create new objects in models db. <br>------------------<br>
+
+        >>> artist_one = Artist.objects.create(name="artist one") <br>
+        >>> artist_two = Artist.objects.create(name="artist two") <br>
+        <br>
+        >>> album_one = Album.objects.create(artist=artist_one) <br>
+        >>> album_two = Album.objects.create(artist=artist_two) <br>
+        <br>
+        >>> song_one = Song.objects.create(artist=artist_one, album=album_one) <br>
+        >>> song_two = Song.objects.create(artist=artist_one, album=album_two) <br>
+        <br>
+        >>> album_one.delete() <br>
+        # Raises RestrictedError. <br>
+        >>> artist_two.delete() <br>
+        # Raises RestrictedError. <br>
+        >>> artist_one.delete() <br>
+        (4, {'Song': 2, 'Album': 1, 'Artist': 1}) <br>
     </p>
 </body>
 </html>
